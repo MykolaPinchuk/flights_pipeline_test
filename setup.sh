@@ -10,9 +10,9 @@ gcloud services enable compute.googleapis.com \
                        cloudfunctions.googleapis.com \
                        --project=${PROJECT_ID}
 
-gcloud storage buckets create gs://training-data-${PROJECT_ID} \
+gcloud storage buckets create gs://mpg3-testflights-${PROJECT_ID} \
     --project=${PROJECT_ID} \
-    --location="europe-west1"
+    --location="us-central1"
 
 gcloud iam service-accounts create vertex-ai-service-account \
     --description="VertexAI Service Account" \

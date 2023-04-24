@@ -3,6 +3,8 @@ source /opt/conda/bin/activate ~/conda_env/py38
 
 export BUCKET="mpg3-testflights-polished-vault-379315"
 export PROJECT_ID="polished-vault-379315"
+export REGION="us-central1"
+export FEATURE_STORE_ID="662390005506"
 
 python ./main.py \
     --input=gs://${BUCKET}/data/processed/2020/2020-05.csv \

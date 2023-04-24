@@ -1,5 +1,6 @@
 # may need to create or load venv here
 source /opt/conda/bin/activate ~/conda_env/py38
+pip install -e .
 
 export BUCKET="mpg3-testflights-polished-vault-379315"
 export PROJECT_ID="polished-vault-379315"
@@ -16,4 +17,6 @@ python ./main.py \
     --region=us-central1 \
     --staging_location=gs://${BUCKET}/beam_staging \
     --temp_location=gs://${BUCKET}/beam_tmp \
-    --job_name=flight-batch-features 
+    --job_name=flight-batch-features \
+    --setup_file ./setup.py
+    

@@ -292,7 +292,7 @@
               "sh",
               "-ec",
               "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
-              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef data_download(\n    data_url: str,\n    split_date: str,\n    dataset_train: Output[Dataset],\n    dataset_test: Output[Dataset],\n):\n    import pandas as pd\n    import logging\n\n    logging.warn(\"Import file:\", data_url)\n\n    data = pd.read_csv(data_url, nrows=5000)\n\n    cancelled = (data[\"Cancelled\"] > 0) | (data[\"Diverted\"] > 0)\n    completed_flights = data[~cancelled]\n\n    training_data = completed_flights[[\"DepDelay\", \"TaxiOut\", \"Distance\"]]\n    # Consider flights that arrive more than 15 min late as delayed\n    training_data[\"target\"] = completed_flights[\"ArrDelay\"] > 15\n\n    test_data = training_data[completed_flights[\"FlightDate\"] >= split_date]\n    training_data = training_data[completed_flights[\"FlightDate\"] < split_date]\n\n    training_data.to_csv(dataset_train.path, index=False)\n    test_data.to_csv(dataset_test.path, index=False)\n\n"
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef data_download(\n    data_url: str,\n    split_date: str,\n    dataset_train: Output[Dataset],\n    dataset_test: Output[Dataset],\n):\n    import pandas as pd\n    import logging\n\n    logging.warn(\"Import file:\", data_url)\n\n    data = pd.read_csv(data_url)\n    # data = pd.read_csv(data_url, nrows=5000)\n\n    cancelled = (data[\"Cancelled\"] > 0) | (data[\"Diverted\"] > 0)\n    completed_flights = data[~cancelled]\n\n    training_data = completed_flights[[\"DepDelay\", \"TaxiOut\", \"Distance\"]]\n    # Consider flights that arrive more than 15 min late as delayed\n    training_data[\"target\"] = completed_flights[\"ArrDelay\"] > 15\n\n    test_data = training_data[completed_flights[\"FlightDate\"] >= split_date]\n    training_data = training_data[completed_flights[\"FlightDate\"] < split_date]\n\n    training_data.to_csv(dataset_train.path, index=False)\n    test_data.to_csv(dataset_test.path, index=False)\n\n"
             ],
             "image": "us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-0:latest"
           }
@@ -473,7 +473,7 @@
                 "display_name": {
                   "runtimeValue": {
                     "constantValue": {
-                      "stringValue": "flight-delay-endpoint12"
+                      "stringValue": "flight-delay-endpoint13"
                     }
                   }
                 },
@@ -864,7 +864,7 @@
         "stringValue": "2020-05-20"
       },
       "training_data_url": {
-        "stringValue": "gs://mpg3-testflights-polished-vault-379315/data/processed/2020/2020-05.csv"
+        "stringValue": "gs://mpg3-testflights-polished-vault-379315/data/processed/2020/2020-05small.csv"
       }
     }
   }

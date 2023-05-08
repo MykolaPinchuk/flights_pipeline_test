@@ -473,7 +473,7 @@
                 "display_name": {
                   "runtimeValue": {
                     "constantValue": {
-                      "stringValue": "flight-delay-endpoint13"
+                      "stringValue": "flight-delay-endpoint14"
                     }
                   }
                 },
@@ -576,7 +576,7 @@
                 "dedicated_resources_machine_type": {
                   "runtimeValue": {
                     "constantValue": {
-                      "stringValue": "n1-standard-8"
+                      "stringValue": "n1-standard-4"
                     }
                   }
                 },
